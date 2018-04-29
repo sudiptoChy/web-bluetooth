@@ -5,25 +5,26 @@
  */
 
 function fireBluetooth () {
-    console.log('Requesting Bluetooth Device...');
+    var display = document.getElementById('info');
+    display.innerHTML = 'Requesting Bluetooth Device...';
     navigator.bluetooth.requestDevice({
             acceptAllDevices: true
         }).then(device => {
-            console.log('Connecting to GATT Server...');
+            display.innerHTML = 'Connecting to GATT Server...';
             return device.gatt.connect();
         }).then(server => {
-            console.log('Getting Battery Service...');
+            display.innerHTML = 'Getting Battery Service...';
             return server.getPrimaryService('battery_service');
          }).then(service => {
-            console.log('Getting Battery Level Characteristic...');
+             display.innerHTML = 'Getting Battery Level Characteristic...';
             return service.getCharacteristic('battery_level');
         }).then(characteristic => {
-            console.log('Reading Battery Level...');
+            display.innerHTML = 'Reading Battery Level...';
             return characteristic.readValue();
         }).then(value => {
             let batteryLevel = value.getUint8(0);
-            document.getElementById('info').innerHTML = "Battery Level is" + batteryLevel + "%";
+            display.innerHTML = "Battery Level is" + batteryLevel + "%";
         }).catch(error => {
-            console.log('Argh! ' + error)
+            display.innerHTML = 'Argh! ' + error
         });
 }

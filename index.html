@@ -3,10 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="manifest.json" rel="manifest">
     <script src="app.js"></script>
 </head>
 <body>
-    <button style="font-size: 25px" onclick="fireBluetooth()">Click Me!</button>
+    <button style="font-size: 25px; margin: 10% 0 0 10%" onclick="fireBluetooth()">Click Me!</button>
     <p id="info"></p>
+
+    <script src="companion.js" data-service-worker="service-worker.js"></script>
 </body>
 </html>
