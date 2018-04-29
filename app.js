@@ -6,24 +6,25 @@
 
 function fireBluetooth () {
     console.log('Requesting Bluetooth Device...');
-    navigator.bluetooth.requestDevice(
-        {filters: [{services: ['battery_service']}]})
-        .then(device => {
-        console.log('Connecting to GATT Server...');
-    return device.gatt.connect();
-    }).then(server => {
-        console.log('Getting Battery Service...');
-    return server.getPrimaryService('battery_service');
-    }).then(service => {
-        console.log('Getting Battery Level Characteristic...');
-        return service.getCharacteristic('battery_level');
-    }).then(characteristic => {
-        console.log('Reading Battery Level...');
-        return characteristic.readValue();
-    }).then(value => {
+    navigator.bluetooth.requestDevice({
+            acceptAllDevices: true,
+            filters: [{services: ['28998e03-c277-48a8-91cb-b29ab0f01ac4']}]
+        }).then(device => {
+            console.log('Connecting to GATT Server...');
+            return device.gatt.connect();
+        }).then(server => {
+            console.log('Getting Battery Service...');
+            return server.getPrimaryService('battery_service');
+         }).then(service => {
+            console.log('Getting Battery Level Characteristic...');
+            return service.getCharacteristic('battery_level');
+        }).then(characteristic => {
+            console.log('Reading Battery Level...');
+            return characteristic.readValue();
+        }).then(value => {
             let batteryLevel = value.getUint8(0);
-        log('> Battery Level is ' + batteryLevel + '%');
-    }).catch(error => {
-        console.log('Argh! ' + error)
-    });
+            log('> Battery Level is ' + batteryLevel + '%');
+        }).catch(error => {
+            console.log('Argh! ' + error)
+        });
 }
