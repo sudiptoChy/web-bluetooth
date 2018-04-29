@@ -8,7 +8,8 @@ function fireBluetooth () {
     var display = document.getElementById('info');
     display.innerHTML = 'Requesting Bluetooth Device...';
     navigator.bluetooth.requestDevice({
-            acceptAllDevices: true
+            acceptAllDevices: true,
+            optionalServices: ['generic_access']
         }).then(device => {
             display.innerHTML = 'Connecting to GATT Server...';
             return device.gatt.connect();
