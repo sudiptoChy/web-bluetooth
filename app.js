@@ -7,7 +7,6 @@
 function fireBluetooth () {
     console.log('Requesting Bluetooth Device...');
     navigator.bluetooth.requestDevice({
-            acceptAllDevices: true,
             filters: [{services: ['28998e03-c277-48a8-91cb-b29ab0f01ac4']}]
         }).then(device => {
             console.log('Connecting to GATT Server...');
