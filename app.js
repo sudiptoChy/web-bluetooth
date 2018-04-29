@@ -22,7 +22,7 @@ function fireBluetooth () {
             return characteristic.readValue();
         }).then(value => {
             let batteryLevel = value.getUint8(0);
-            log('> Battery Level is ' + batteryLevel + '%');
+            document.getElementById('info').innerHTML = "Battery Level is" + batteryLevel + "%";
         }).catch(error => {
             console.log('Argh! ' + error)
         });
